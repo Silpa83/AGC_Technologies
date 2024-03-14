@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: abc-technologies
-        image: suryalankeladevops/abc_technologies:bno
+        image: suryalankeladevops/abc_technologies:$BUILD_NUMBER
         ports:
         - name: http
           containerPort: 8080
