@@ -30,7 +30,7 @@ pipeline {
 		stage('docker login & ansible playbook for docker build and push') {
 	       steps {
 	           withDockerRegistry(credentialsId: 'DOCKER_HUB_LOGIN', url: 'https://index.docker.io/v1/') {
-               sh script: 'ansible-playbook -i localhost, deploy/ansible_dockerbuild_play.yml'
+               sh script: 'ansible-playbook -i localhost, deploy/ansible_dockerbuild_play2.yml'
                 }
 	        }
 		}
