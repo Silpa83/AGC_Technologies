@@ -19,9 +19,9 @@
         cmd: |
           docker push docker.io/suryalankeladevops/abc_technologies:{{ build_number }}
 		  
-	- name: Push Docker image
+    - name: Docker deploy
       shell:
         cmd: |
           docker stop abc-container || true
-		      docker rm -f abc-container || true
-		      docker run -d -p 9090:8080 --name abc-container suryalankeladevops/abc_technologies:$BUILD_NUMBER
+	  docker rm -f abc-container || true
+	  docker run -d -p 9090:8080 --name abc-container suryalankeladevops/abc_technologies:{{ build_number }}
