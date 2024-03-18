@@ -1,0 +1,26 @@
+---
+- hosts: localhost  # Assuming you're running Ansible locally
+  connection: local
+  become: true
+  vars:
+    build_number: "{{ lookup('env', 'BUILD_NUMBER') }}"
+     
+  tasks:   
+    - name: Docker build
+      shell:
+        cmd: |
+          cd {{ workspace }}
+          docker build --file Dockerfile --tag suryalankeladevops/abc_technologies:{{ build_number }} .
+      vars:
+        workspace: "{{ lookup('env', 'WORKSPACE') }}"
+
+    - name: Log in to Docker registry
+      docker_login:
+        username: suryalankeladevops
+        password: Teju@1993
+        reauthorize: yes
+
+    - name: Push Docker image
+      shell:
+        cmd: |
+          docker push docker.io/suryalankeladevops/abc_technologies:{{ build_number }}
