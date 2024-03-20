@@ -1,0 +1,29 @@
+---    
+- hosts: qa
+  remote_user: devops
+  become: false
+  vars:
+    build_number: "{{ lookup('env', 'BUILD_NUMBER') }}"
+  tasks:
+    - name: Deploying Application pods...
+      shell: |
+         if [ `kubectl get deployment | grep -v NAME | awk '{print $1}' | grep abc-technologies | wc -l` -gt 0 ]; then  
+            echo "deleteing previous application deployment"
+            kubectl delete deployment `kubectl get deployment | grep -v NAME | awk '{print $1}' | grep abc-technologies`
+            echo "creating new application deployment"
+            kubectl create deployment abc-technologies --image=suryalankeladevops/abc_technologies:{{ build_number }}
+         else
+            echo "Deploying abc-technologies Application"
+            kubectl create deployment abc-technologies --image=suryalankeladevops/abc_technologies:{{ build_number }}
+         fi
+    - name: deploying service
+      shell: |
+         if [ `kubectl get svc | grep abc-svc  | awk '{print $1}' | wc -l` -gt 0 ]; then
+            echo "app service found, No actions taken"
+            #kubectl delete svc `kubectl get svc | grep abc-svc | awk '{print $1}'`
+         else
+            echo "Creating App Services"
+            kubectl expose deployment abc-technologies --name abc-svc --type NodePort --port 30002 --target-port 9090
+         fi
+    - name: increase replicas
+      shell: kubectl scale deploy abc-technologies --replicas=2
