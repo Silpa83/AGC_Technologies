@@ -1,5 +1,5 @@
 ---
-- hosts: 10.138.0.2  # Assuming you're running Ansible locally
+- hosts: localhost  # Assuming you're running Ansible locally
   connection: local
   become: true
   vars:
