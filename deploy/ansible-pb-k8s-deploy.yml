@@ -23,7 +23,7 @@
             #kubectl delete svc `kubectl get svc | grep abc-svc | awk '{print $1}'`
          else
             echo "Creating App Services"
-            kubectl expose deployment abc-technologies --name abc-svc --type NodePort --port 30002 --target-port 9090
+            kubectl expose deployment abc-technologies --name abc-svc --type NodePort --port 30002 --target-port 6443
          fi
     - name: increase replicas
       shell: kubectl scale deploy abc-technologies --replicas=2
