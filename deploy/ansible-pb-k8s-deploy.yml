@@ -1,7 +1,6 @@
 ---    
 - hosts: qa
-  remote_user: devops
-  become: false
+  become: true
   vars:
     build_number: "{{ lookup('env', 'BUILD_NUMBER') }}"
   tasks:
