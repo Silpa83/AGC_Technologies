@@ -19,10 +19,10 @@
       shell: |
          if [ `kubectl get svc | grep abc-svc  | awk '{print $1}' | wc -l` -gt 0 ]; then
             echo "app service found, No actions taken"
-            #kubectl delete svc `kubectl get svc | grep abc-svc | awk '{print $1}'`
+            #kubectl delete svc `kubectl get svc | grep abc-technologies-svc | awk '{print $1}'`
          else
             echo "Creating App Services"
-            kubectl expose deployment abc-technologies --name abc-svc --type NodePort --port 80 --target-port 8080
+            kubectl expose deployment abc-technologies --name abc-technologies-svc --type NodePort --port 80 --target-port 8080
          fi
     - name: increase replicas
       shell: kubectl scale deploy abc-technologies --replicas=2
