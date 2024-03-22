@@ -8,7 +8,7 @@
         api_version: apps/v1
         kind: Deployment
         namespace: default
-        name: abc-pod
+        name: abc-technologies
       register: existing_deployment
       ignore_errors: yes
 
@@ -19,7 +19,7 @@
           apiVersion: apps/v1
           kind: Deployment
           metadata:
-            name: abc-pod
+            name: abc-technologies
             namespace: default
       when: existing_deployment is defined and existing_deployment is not none
 
@@ -28,7 +28,7 @@
         api_version: v1
         kind: Service
         namespace: default
-        name: abc-svc
+        name: abc-technologies-svc
       register: existing_service
       ignore_errors: yes
 
@@ -39,11 +39,11 @@
           apiVersion: v1
           kind: Service
           metadata:
-            name: abc-svc
+            name: abc-technologies-svc
             namespace: default
       when: existing_deployment is defined and existing_deployment is not none
 
     - name: Apply manifest file using kubectl
-      command: kubectl apply -f /etc/kubernetes/k8s_deploy.yml
+      command: kubectl apply -f /etc/kubernetes/abc_app-deploy-k8s.yml
       args:
         executable: /bin/bash
