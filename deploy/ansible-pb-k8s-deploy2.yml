@@ -1,9 +1,0 @@
----
-- name: Deploy Kubernetes manifests
-  hosts: qa
-  become: true
-  tasks:
-    - name: Apply Kubernetes manifests
-      k8s:
-        state: present
-        src: /var/lib/jenkins/workspace/cicd_ansible_k8sdeploy_new/deploy/abc_app-deploy-k8s.yml
